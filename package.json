@@ -1,0 +1,384 @@
+{
+  "name": "zip-archive-explorer",
+  "displayName": "ZIP Viewer & Archive Explorer (JAR, TAR, GZ)",
+  "description": "Browse ZIP, JAR, VSIX, TAR, TAR.GZ and GZ files in VS Code without unpacking them. Open entries in editor tabs, search names and extract safely.",
+  "version": "0.1.0",
+  "publisher": "zovo",
+  "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#1B2533",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.90.0",
+    "node": ">=18"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "zip",
+    "zip viewer",
+    "zip explorer",
+    "zip file",
+    "archive",
+    "archive viewer",
+    "archive explorer",
+    "unzip",
+    "extract",
+    "jar",
+    "jar viewer",
+    "vsix",
+    "vsix viewer",
+    "tar",
+    "tar.gz",
+    "tgz",
+    "gz",
+    "gzip",
+    "war",
+    "whl",
+    "nupkg",
+    "compressed",
+    "compression ratio",
+    "zip slip",
+    "zip bomb",
+    "file browser",
+    "read-only",
+    "preview",
+    "offline",
+    "no telemetry"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onFileSystem:zovo-archive"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "archiveExplorer.editor",
+        "displayName": "Archive Explorer",
+        "selector": [
+          {
+            "filenamePattern": "*.zip"
+          },
+          {
+            "filenamePattern": "*.jar"
+          },
+          {
+            "filenamePattern": "*.vsix"
+          },
+          {
+            "filenamePattern": "*.tar"
+          },
+          {
+            "filenamePattern": "*.tgz"
+          },
+          {
+            "filenamePattern": "*.gz"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "archiveExplorer.tree",
+          "name": "Archive Explorer",
+          "icon": "media/archive.svg",
+          "visibility": "collapsed",
+          "contextualTitle": "Archive Explorer"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "archiveExplorer.tree",
+        "contents": "Browse a ZIP, JAR, VSIX, TAR, TAR.GZ or GZ file here without unpacking it.\n[Pick an archive](command:archiveExplorer.pickArchive)\nYou can also right-click an archive in the Explorer and choose Browse in Archive Explorer."
+      }
+    ],
+    "commands": [
+      {
+        "command": "archiveExplorer.browse",
+        "title": "Browse in Archive Explorer",
+        "category": "Archive Explorer",
+        "icon": "$(list-tree)"
+      },
+      {
+        "command": "archiveExplorer.pickArchive",
+        "title": "Browse an Archive...",
+        "category": "Archive Explorer",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "archiveExplorer.openWith",
+        "title": "Open in Archive Explorer",
+        "category": "Archive Explorer",
+        "icon": "$(preview)"
+      },
+      {
+        "command": "archiveExplorer.search",
+        "title": "Search Names in Archive",
+        "category": "Archive Explorer",
+        "icon": "$(search)"
+      },
+      {
+        "command": "archiveExplorer.openEntry",
+        "title": "Open",
+        "category": "Archive Explorer"
+      },
+      {
+        "command": "archiveExplorer.openEntryToSide",
+        "title": "Open to the Side",
+        "category": "Archive Explorer"
+      },
+      {
+        "command": "archiveExplorer.extract",
+        "title": "Extract...",
+        "category": "Archive Explorer",
+        "icon": "$(desktop-download)"
+      },
+      {
+        "command": "archiveExplorer.copyPath",
+        "title": "Copy Path",
+        "category": "Archive Explorer"
+      },
+      {
+        "command": "archiveExplorer.close",
+        "title": "Close Archive",
+        "category": "Archive Explorer",
+        "icon": "$(close)"
+      },
+      {
+        "command": "archiveExplorer.closeAll",
+        "title": "Close All Archives",
+        "category": "Archive Explorer",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "archiveExplorer.openWalkthrough",
+        "title": "Get Started",
+        "category": "Archive Explorer"
+      },
+      {
+        "command": "archiveExplorer.supportDeveloper",
+        "title": "Support the developer",
+        "category": "Archive Explorer"
+      },
+      {
+        "command": "archiveExplorer.moreViewers",
+        "title": "More free viewers",
+        "category": "Archive Explorer"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "archiveExplorer.browse",
+          "when": "resourceFilename =~ /\\.(zip|jar|vsix|war|ear|aar|apk|whl|nupkg|xpi|ipa|epub|tar|tgz|gz)$/i",
+          "group": "navigation@9"
+        },
+        {
+          "command": "archiveExplorer.openWith",
+          "when": "resourceFilename =~ /\\.(zip|jar|vsix|war|ear|aar|apk|whl|nupkg|xpi|ipa|epub|tar|tgz|gz)$/i",
+          "group": "navigation@10"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "archiveExplorer.search",
+          "when": "view == archiveExplorer.tree && archiveExplorer.hasArchives",
+          "group": "navigation@1"
+        },
+        {
+          "command": "archiveExplorer.pickArchive",
+          "when": "view == archiveExplorer.tree",
+          "group": "navigation@2"
+        },
+        {
+          "command": "archiveExplorer.closeAll",
+          "when": "view == archiveExplorer.tree && archiveExplorer.hasArchives",
+          "group": "navigation@3"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "archiveExplorer.search",
+          "when": "view == archiveExplorer.tree && viewItem == archive",
+          "group": "inline@1"
+        },
+        {
+          "command": "archiveExplorer.close",
+          "when": "view == archiveExplorer.tree && viewItem == archive",
+          "group": "inline@2"
+        },
+        {
+          "command": "archiveExplorer.openWith",
+          "when": "view == archiveExplorer.tree && viewItem == archive",
+          "group": "1_open@1"
+        },
+        {
+          "command": "archiveExplorer.openEntry",
+          "when": "view == archiveExplorer.tree && viewItem == entry.file",
+          "group": "1_open@1"
+        },
+        {
+          "command": "archiveExplorer.openEntryToSide",
+          "when": "view == archiveExplorer.tree && viewItem == entry.file",
+          "group": "1_open@2"
+        },
+        {
+          "command": "archiveExplorer.extract",
+          "when": "view == archiveExplorer.tree && viewItem =~ /^(entry|archive)/",
+          "group": "2_extract@1"
+        },
+        {
+          "command": "archiveExplorer.copyPath",
+          "when": "view == archiveExplorer.tree && viewItem =~ /^(entry|archive)/",
+          "group": "3_copy@1"
+        },
+        {
+          "command": "archiveExplorer.search",
+          "when": "view == archiveExplorer.tree && viewItem == archive",
+          "group": "4_search@1"
+        },
+        {
+          "command": "archiveExplorer.close",
+          "when": "view == archiveExplorer.tree && viewItem == archive",
+          "group": "5_close@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "archiveExplorer.openEntry",
+          "when": "false"
+        },
+        {
+          "command": "archiveExplorer.openEntryToSide",
+          "when": "false"
+        },
+        {
+          "command": "archiveExplorer.copyPath",
+          "when": "false"
+        },
+        {
+          "command": "archiveExplorer.close",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Archive Explorer",
+      "properties": {
+        "archiveExplorer.maxEntries": {
+          "type": "number",
+          "default": 200000,
+          "minimum": 10,
+          "maximum": 5000000,
+          "description": "Archives that list more entries than this are not read, so VS Code stays responsive. It also caps the files written by one extraction."
+        },
+        "archiveExplorer.maxEntryMB": {
+          "type": "number",
+          "default": 512,
+          "minimum": 1,
+          "maximum": 8192,
+          "description": "Largest unpacked entry, in MB, that opens in an editor tab. Larger entries can still be extracted."
+        },
+        "archiveExplorer.maxUnpackedMB": {
+          "type": "number",
+          "default": 2048,
+          "minimum": 1,
+          "maximum": 65536,
+          "description": "Most data, in MB, that one extraction may write. The same limit applies to unpacking a .tar.gz in memory. It stops zip bombs before they fill your disk."
+        },
+        "archiveExplorer.askForRating": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ask one time for a Marketplace rating after you have used Archive Explorer for a few days. You can answer \"Later\" or \"Don't ask again\". Nothing is sent anywhere."
+        },
+        "archiveExplorer.showSupportLinks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the small Sponsor and More free viewers links in the status line of the archive view. The change shows in archives you open next. Nothing is sent anywhere."
+        }
+      }
+    },
+    "walkthroughs": [
+      {
+        "id": "archiveExplorer.start",
+        "title": "Get started with Archive Explorer",
+        "description": "Look inside ZIP, JAR, VSIX and TAR files without unpacking them.",
+        "steps": [
+          {
+            "id": "open",
+            "title": "Open an archive",
+            "description": "Click a .zip, .jar, .vsix, .tar, .tar.gz or .gz file in the Explorer. It opens as a folder list with sizes and compression ratios.\n[Find an archive](command:workbench.action.quickOpen?%5B%22.zip%22%5D)",
+            "media": {
+              "image": "images/archive-editor.png",
+              "altText": "A ZIP archive in Archive Explorer with folders, sizes, ratios and the Explorer tree."
+            },
+            "completionEvents": [
+              "onCommand:workbench.action.quickOpen"
+            ]
+          },
+          {
+            "id": "entries",
+            "title": "Open entries in tabs",
+            "description": "Double-click a file to open it read-only in a normal editor tab, with syntax colors, image preview, or the viewer you have for that type. Nested archives open as archives.",
+            "media": {
+              "markdown": "walkthrough/entries.md"
+            }
+          },
+          {
+            "id": "tree",
+            "title": "Browse in the Explorer tree",
+            "description": "Right-click an archive and choose Browse in Archive Explorer. The tree in the side bar shows its folders, and the search icon finds names.",
+            "media": {
+              "markdown": "walkthrough/tree.md"
+            }
+          },
+          {
+            "id": "extract",
+            "title": "Extract safely",
+            "description": "Extract one file, a folder or the whole archive. Names with .. or absolute paths are never written, and size limits stop zip bombs.\n[Open settings](command:workbench.action.openSettings?%5B%22archiveExplorer%22%5D)",
+            "media": {
+              "markdown": "walkthrough/extract.md"
+            },
+            "completionEvents": [
+              "onCommand:workbench.action.openSettings"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "build": "node scripts/build.js --production",
+    "test": "node scripts/build.js --production && node --test \"test/*.test.js\"",
+    "samples": "node scripts/make-samples.js samples",
+    "package": "npm run build && npx -y @vscode/vsce package --no-dependencies -o dist/"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "fflate": "0.8.3"
+  },
+  "homepage": "https://github.com/theluckystrike/zip-archive-explorer-vscode#readme",
+  "bugs": {
+    "url": "https://github.com/theluckystrike/zip-archive-explorer-vscode/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theluckystrike/zip-archive-explorer-vscode"
+  },
+  "sponsor": {
+    "url": "https://github.com/sponsors/theluckystrike"
+  }
+}
