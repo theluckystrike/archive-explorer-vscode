@@ -1,4 +1,4 @@
-# ZIP Viewer & Archive Explorer
+# ZIP Viewer & Archive Viewer (JAR, TAR, GZ)
 
 Look inside ZIP, JAR, VSIX, TAR, TAR.GZ and GZ files in VS Code, open any file in an editor tab, and extract only what you need without unpacking the rest.
 

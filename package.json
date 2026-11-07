@@ -1,7 +1,7 @@
 {
   "name": "zip-archive-explorer",
-  "displayName": "ZIP Viewer & Archive Explorer (JAR, TAR, GZ)",
-  "description": "Browse ZIP, JAR, VSIX, TAR, TAR.GZ and GZ files in VS Code without unpacking them. Open entries in editor tabs, search names and extract safely.",
+  "displayName": "ZIP Viewer & Archive Viewer (JAR, TAR, GZ)",
+  "description": "ZIP viewer and archive viewer for ZIP, JAR, VSIX, TAR, TAR.GZ and GZ files in VS Code. Browse them without unpacking. Open entries in editor tabs, search names and extract safely.",
   "version": "0.1.0",
   "publisher": "zovo",
   "license": "MIT",
@@ -19,17 +19,18 @@
     "Other"
   ],
   "keywords": [
-    "zip",
     "zip viewer",
-    "zip explorer",
-    "zip file",
-    "archive",
     "archive viewer",
+    "zip explorer",
+    "tar viewer",
+    "jar viewer",
+    "zip file",
     "archive explorer",
+    "zip",
+    "archive",
     "unzip",
     "extract",
     "jar",
-    "jar viewer",
     "vsix",
     "vsix viewer",
     "tar",
@@ -47,8 +48,7 @@
     "file browser",
     "read-only",
     "preview",
-    "offline",
-    "no telemetry"
+    "offline"
   ],
   "main": "./dist/extension.js",
   "activationEvents": [
