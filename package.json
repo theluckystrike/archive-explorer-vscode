@@ -2,7 +2,7 @@
   "name": "zip-archive-explorer",
   "displayName": "ZIP Viewer & Archive Viewer (JAR, TAR, GZ)",
   "description": "ZIP viewer and archive viewer for ZIP, JAR, VSIX, TAR, TAR.GZ and GZ files in VS Code. Browse them without unpacking. Open entries in editor tabs, search names and extract safely.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "zovo",
   "license": "MIT",
   "icon": "icon.png",
