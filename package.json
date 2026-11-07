@@ -370,13 +370,13 @@
     "esbuild": "0.28.2",
     "fflate": "0.8.3"
   },
-  "homepage": "https://github.com/theluckystrike/zip-archive-explorer-vscode#readme",
+  "homepage": "https://github.com/theluckystrike/archive-explorer-vscode#readme",
   "bugs": {
-    "url": "https://github.com/theluckystrike/zip-archive-explorer-vscode/issues"
+    "url": "https://github.com/theluckystrike/archive-explorer-vscode/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/theluckystrike/zip-archive-explorer-vscode"
+    "url": "https://github.com/theluckystrike/archive-explorer-vscode"
   },
   "sponsor": {
     "url": "https://github.com/sponsors/theluckystrike"
